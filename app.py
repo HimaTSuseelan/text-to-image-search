@@ -15,7 +15,7 @@ def main():
         images.append(image)
 
     # Display all the images in the folder
-    st.image(images, caption=[f"Image {i+1}" for i in range(len(images))], width=100)
+    st.image(images, caption=[f"Image {i+1}" for i in range(len(images))], width=100, height=100)
 
     
     model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
