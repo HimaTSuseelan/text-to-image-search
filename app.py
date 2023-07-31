@@ -4,7 +4,7 @@ import os
 from transformers import CLIPProcessor, CLIPModel
 
 def main():
-    st.title("CLIP Image Search App")
+    st.title(" Image Search App")
 
     images = []  # List to store all the images in the folder
     folder_path = "tiny_imaterialist/"
@@ -30,7 +30,7 @@ def main():
 
         folder_path = "tiny_imaterialist/"
         top_images = []  # List to store the top three images with the highest probabilities
-        num_images_to_display = 2
+        num_images_to_display = 1
 
         for img in os.listdir(folder_path):
             image_path = os.path.join(folder_path, img)
@@ -53,7 +53,7 @@ def main():
                     top_images[min_probability_index] = (probability, image_path)
 
         top_images = sorted(top_images, reverse=True)
-        st.write("Top 3 Images with Highest Probabilities:")
+        st.write("Top", num_images_to_display, " Image with Highest Probabilities:")
         for prob, image_path in top_images:
             st.write(f"Probability: {prob}")
             st.image(Image.open(image_path), caption=f"Image with probability: {prob}", use_column_width=True)
