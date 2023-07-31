@@ -63,7 +63,6 @@ def main():
         with col2:
             st.write("Top", num_images_to_display, "Images with Highest Probabilities:")
             for prob, image_path in top_images:
-                st.write(f"Probability: {prob}")
 
                 image = Image.open(image_path)
                 if(image.width > image.height):
