@@ -17,8 +17,8 @@ def main():
         index = len(classes)
 
         folder_path = "tiny_imaterialist/"
-        max_probability = 0.0
-        max_probability_image = None
+        top_images = []  # List to store the top three images with the highest probabilities
+        num_images_to_display = 3
 
         for img in os.listdir(folder_path):
             image_path = os.path.join(folder_path, img)
@@ -30,14 +30,21 @@ def main():
             logits_per_image = outputs.logits_per_image
             probs = logits_per_image.softmax(dim=1)
 
-            if probs[0][index-1] > max_probability:
-                max_probability = probs[0][index-1]
-                max_probability_image = image_path
+            probability = probs[0][index-1].item()
 
-        st.write(f"Image with maximum probability: {max_probability_image} \t Probability: {max_probability}")
+            # Keep only top num_images_to_display images with the highest probabilities
+            if len(top_images) < num_images_to_display:
+                top_images.append((probability, image_path))
+            else:
+                min_probability_index = min(range(len(top_images)), key=lambda i: top_images[i][0])
+                if probability > top_images[min_probability_index][0]:
+                    top_images[min_probability_index] = (probability, image_path)
 
-        image = Image.open(os.getcwd() + "/" + max_probability_image)
-        st.image(image, caption=f"Image with maximum probability: {max_probability_image}", use_column_width=True)
+        top_images = sorted(top_images, reverse=True)
+        st.write("Top 3 Images with Highest Probabilities:")
+        for prob, image_path in top_images:
+            st.write(f"Probability: {prob}")
+            st.image(Image.open(image_path), caption=f"Image with probability: {prob}", use_column_width=True)
 
 if __name__ == "__main__":
     main()
