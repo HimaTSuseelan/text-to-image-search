@@ -6,6 +6,7 @@ from transformers import CLIPProcessor, CLIPModel
 def main():
     st.set_page_config(layout="wide")  # Set Streamlit to use full page width
     st.title("Image Search App")
+    st.write("Images present in database")
 
     # Create a two-column layout
     col1, col2 = st.columns([2, 3])
@@ -20,8 +21,6 @@ def main():
         images.append(image)
 
     # Display all the images in the folder on the left side (col1)
-    st.write("Images present in database")
-
     col1.image(images, caption=[f"Image {i+1}" for i in range(len(images))], width=100)
 
     # In the right column (col2), display the image search input and results
