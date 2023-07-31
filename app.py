@@ -31,7 +31,7 @@ def main():
 
         folder_path = "tiny_imaterialist/"
         top_images = []  # List to store the top three images with the highest probabilities
-        num_images_to_display = 1
+        num_images_to_display = 4
 
         for img in os.listdir(folder_path):
             image_path = os.path.join(folder_path, img)
