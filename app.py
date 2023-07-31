@@ -12,10 +12,11 @@ def main():
     for img in os.listdir(folder_path):
         image_path = os.path.join(folder_path, img)
         image = Image.open(image_path)
+        image = image.resize((100, 100))
         images.append(image)
 
     # Display all the images in the folder
-    st.image(images, caption=[f"Image {i+1}" for i in range(len(images))], width=100, height=100)
+    st.image(images, caption=[f"Image {i+1}" for i in range(len(images))], width=100)
 
     
     model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
